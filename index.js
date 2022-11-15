@@ -39,6 +39,14 @@ const quizData = [
         d: "Млечный путь",
         correct: "d",
     },
+    {
+        question: "Сколько цветов в радуге?",
+        a: "6",
+        b: "7",
+        c: "8",
+        d: "9",
+        correct: "b",
+    },
 ];
 
 const quiz = document.getElementById("quiz");
@@ -69,7 +77,7 @@ function loadQuiz() {
 
 function getSelected() {
     let answer = undefined;
- 
+
     answerEls.forEach((answerEl) => {
         if (answerEl.checked) {
             answer = answerEl.id;
@@ -95,9 +103,17 @@ submitBtn.addEventListener("click", () => {
         if (currentQuiz < quizData.length) {
             loadQuiz();
         } else {
-            quiz.innerHTML = `
+            if (score == quizData.length) {
+                quiz.innerHTML = `
+                <img src="img/win.jpg" style="    object-fit: cover;
+                width: 100%;
+                height: 500px;"/>
+                <button onclick="location.reload()">Перезагрузить</button>`;
+            } else {
+                quiz.innerHTML = `
                 <h2>Вы ответили правильно на ${score}/${quizData.length} вопросов.</h2>
                 <button onclick="location.reload()">Перезагрузить</button>`;
+            }
         }
     }
 });
